@@ -43,7 +43,6 @@ function game() {
             console.log("You lose! " + rps[computerSelection] + " beats " + rps[playerSelection]);
             computerScore++;
         }
-        numRounds--;
     }
     return;
 
