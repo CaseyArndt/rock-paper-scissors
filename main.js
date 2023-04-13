@@ -1,5 +1,5 @@
 const rps = {0: 'Rock', 1: 'Paper', 2: "Scissors"};
-const WIN_CONDITION = 0;
+const WIN_CONDITION = 5;
 game();
 
 function getComputerChoice() {
