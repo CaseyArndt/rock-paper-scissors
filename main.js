@@ -1,31 +1,81 @@
 const rps = {0: 'Rock', 1: 'Paper', 2: "Scissors"};
+const symbols = {0: '🪨', 1: '📄', 2: '✂️'}
 const WIN_CONDITION = 5;
-game();
+let pScore = 0;
+let cScore = 0;
+
+window.onload=function(){
+    const resetBtn = document.getElementById("resetBtn");
+    const rockBtn = document.getElementById("rockBtn");
+    const paperBtn = document.getElementById("paperBtn");
+    const scissorsBtn = document.getElementById("scissorsBtn");
+    const pIcon = document.getElementById("pChoice");
+    const cIcon = document.getElementById("cChoice");
+    const roundMsg = document.getElementById('roundMsg');
+    const pWins = document.getElementById("pWins");
+    const cWins = document.getElementById("cWins");
+
+    resetBtn.addEventListener("click", () => resetGame());
+    rockBtn.addEventListener("click", () => playRound(0));
+    paperBtn.addEventListener("click", () => playRound(1));
+    scissorsBtn.addEventListener("click", () => playRound(2));
+}
+  
 
 function getComputerChoice() {
     const computerSelection = Math.floor(Math.random() * 3);
     return computerSelection;
 }
 
-function playRound(playerSelection, computerSelection) {
+function isGameOver() {
+    if (pScore == 5 || cScore == 5) {
+        return true;
+    } 
+    return false;
+}
+
+function resetGame() {
+    pScore = 0;
+    cScore = 0;
+    roundMsg.textContent = ".";
+    pIcon.textContent = "...";
+    cIcon.textContent = "...";
+    pWins.textContent = pScore;
+    cWins.textContent = cScore;
+}
+
+function playRound(pChoice) {
+    let cChoice = getComputerChoice();
+
+    console.log(pChoice, cChoice);    
+
+    pIcon.textContent = symbols[pChoice];
+    cIcon.textContent = symbols[cChoice];
     // Tie round
-    if (playerSelection == computerSelection) {
-        return 0;
+    if (pChoice == cChoice) {
+        roundMsg.textContent = "Round draw!";
     }
     // Player wins round
-    if ((playerSelection == 0 && computerSelection == 2) || 
-        (playerSelection == 1 && computerSelection == 0) || 
-        (playerSelection == 2 && computerSelection == 1)) {
-        return 1;
+    else if ((pChoice == 0 && cChoice == 2) || 
+        (pChoice == 1 && cChoice == 0) || 
+        (pChoice == 2 && cChoice == 1)) {
+        roundMsg.textContent = "Round win! " + symbols[pChoice] + " beats " + symbols[cChoice];
+        pScore++;
     }
     // Player loses round
-    return -1;
+    else {
+        roundMsg.textContent = "Round loss! " + symbols[cChoice] + " beats " + symbols[pChoice];
+        cScore++;
+    }
+    pWins.textContent = pScore;
+    cWins.textContent = cScore;
+
+    if (isGameOver()) {
+        endGame();
+    }
 }
 
 function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-
     while (playerScore < WIN_CONDITION && computerScore < WIN_CONDITION) {
         let playerSelection = prompt("Enter your pick: ");
         let computerSelection = getComputerChoice();
@@ -44,6 +94,4 @@ function game() {
             computerScore++;
         }
     }
-    return;
-
 }
