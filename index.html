@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock. Paper. Scissors.</title>
     <script src="main.js"></script>
+    <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
     <link
     href="https://fonts.googleapis.com/css2?family=Lacquer&family=Roboto&display=swap"
@@ -13,35 +14,36 @@
   />
 </head>
 <body>
-    <div class="banner">
+    <div id="header" class="text-center">
         <h1>Rock. Paper. Scissors.</h1>
     </div>
-    <p>Aliens have invaded Earth.</p>
-    <p>In their hubris, they believe that all conflicts are settled with a game of Rock, Paper, Scissors.</p>
-    <p>They have challenged <em>you</em> to be humanity's champion.</p>
-    <p>Defeat the aliens. Save humanity. First to five wins.</p>
-    <button id="resetBtn">Play new game</button>
-    <div class="flex-container choiceButtons">
+    <div id="storyInfo" class="text-center">
+        <p>Aliens have invaded Earth. They have chosen <em>you</em> to be humanity's champion.</p>
+        <p>Defeat the aliens. Save humanity. First to five wins.</p>
+    </div>
+    <div id="choiceButtons" class="flex-container">
         <button class="flex-item choice-button" id="rockBtn">🪨</button>
         <button class="flex-item choice-button" id="paperBtn">📄</button>
         <button class="flex-item choice-button" id="scissorsBtn">✂️</button>
     </div>
-    <p id="roundMsg">..</p>
+    <p id="roundMsg" class="text-center"></p>
     <div class="flex-container round-results">
         <div class="flex-item playerMove">
-            <p id="pIcon">...</p>
-            <p>Player:</p>
-            <p id="pWins"></p>
+            <p id="pIcon" class="text-center">?</p>
+            <p class="inline">Player:</p>
+            <p id="pWins" class="inline">0</p>
         </div>
         <div class="flex-item computerMove">
-            <p id="cIcon">...</p>
-            <p>Computer:</p>
-            <p id="cWins"></p>
+            <p id="cIcon" class="text-center">?</p>
+            <p class="inline">Computer:</p>
+            <p id="cWins" class="inline">0</p>
         </div>
     </div>
     <div class="flex-container game-results">
         <p></p>
     </div>
+    <button id="resetBtn">Play new game</button>
+
 </body>
 
 </html>

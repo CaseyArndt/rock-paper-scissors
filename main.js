@@ -5,7 +5,7 @@ let pScore = 0;
 let cScore = 0;
 
 window.onload=function(){
-    const resetBtn = document.getElementById("resetBtn");
+    //const resetBtn = document.getElementById("resetBtn");
     const rockBtn = document.getElementById("rockBtn");
     const paperBtn = document.getElementById("paperBtn");
     const scissorsBtn = document.getElementById("scissorsBtn");
@@ -15,7 +15,7 @@ window.onload=function(){
     const pWins = document.getElementById("pWins");
     const cWins = document.getElementById("cWins");
 
-    resetBtn.addEventListener("click", () => resetGame());
+    //resetBtn.addEventListener("click", () => resetGame());
     rockBtn.addEventListener("click", () => playRound(0));
     paperBtn.addEventListener("click", () => playRound(1));
     scissorsBtn.addEventListener("click", () => playRound(2));
@@ -37,11 +37,27 @@ function isGameOver() {
 function resetGame() {
     pScore = 0;
     cScore = 0;
-    roundMsg.textContent = ".";
-    pIcon.textContent = "...";
-    cIcon.textContent = "...";
+    roundMsg.textContent = "";
+    //roundInfo.textContent = "";
+    pIcon.textContent = "?";
+    cIcon.textContent = "?";
     pWins.textContent = pScore;
     cWins.textContent = cScore;
+}
+
+function endGame() {
+    let msg;
+    if (pScore > cScore) {
+        msg = "You have defeated the aliens!";
+    } else {
+        msg = "Oh no, you lost and humanity is doomed!";
+    }
+    const div = document.createElement("div");
+    div.id = "endGame";
+    const btn = document.createElement("button");
+    btn.innerHTML = "Play Again?";
+    btn.id = "resetBtn";
+    btn.addEventListener("click", () => resetGame());
 }
 
 function playRound(pChoice) {
@@ -54,17 +70,20 @@ function playRound(pChoice) {
     // Tie round
     if (pChoice == cChoice) {
         roundMsg.textContent = "Round draw!";
+        //roundInfo.textContent = '';
     }
     // Player wins round
     else if ((pChoice == 0 && cChoice == 2) || 
         (pChoice == 1 && cChoice == 0) || 
         (pChoice == 2 && cChoice == 1)) {
-        roundMsg.textContent = "Round win! " + symbols[pChoice] + " beats " + symbols[cChoice];
+        roundMsg.textContent = "Round win!"; 
+        //roundInfo.textContent = rps[pChoice] + " beats " + rps[cChoice];
         pScore++;
     }
     // Player loses round
     else {
-        roundMsg.textContent = "Round loss! " + symbols[cChoice] + " beats " + symbols[pChoice];
+        roundMsg.textContent = "Round loss!"; 
+        //roundInfo.textContent = rps[cChoice] + " beats " + rps[pChoice];
         cScore++;
     }
     pWins.textContent = pScore;
@@ -72,26 +91,5 @@ function playRound(pChoice) {
 
     if (isGameOver()) {
         endGame();
-    }
-}
-
-function game() {
-    while (playerScore < WIN_CONDITION && computerScore < WIN_CONDITION) {
-        let playerSelection = prompt("Enter your pick: ");
-        let computerSelection = getComputerChoice();
-        let res = playRound(playerSelection, computerSelection);
-
-        if (res == 0) {
-            console.log("Tie round!");
-            continue;
-        }
-        else if (res == 1) {
-            console.log("You win! " + rps[playerSelection] + " beats " + rps[computerSelection]);
-            playerScore++;
-        }
-        else {
-            console.log("You lose! " + rps[computerSelection] + " beats " + rps[playerSelection]);
-            computerScore++;
-        }
     }
 }
