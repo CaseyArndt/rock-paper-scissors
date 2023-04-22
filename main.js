@@ -1,11 +1,11 @@
 const rps = {0: 'Rock', 1: 'Paper', 2: "Scissors"};
 const symbols = {0: '🪨', 1: '📄', 2: '✂️'}
-const WIN_CONDITION = 5;
+const WIN_CONDITION = 1;
 let pScore = 0;
 let cScore = 0;
 
 window.onload=function(){
-    //const resetBtn = document.getElementById("resetBtn");
+    const resetBtn = document.getElementById("resetBtn");
     const rockBtn = document.getElementById("rockBtn");
     const paperBtn = document.getElementById("paperBtn");
     const scissorsBtn = document.getElementById("scissorsBtn");
@@ -14,11 +14,15 @@ window.onload=function(){
     const roundMsg = document.getElementById('roundMsg');
     const pWins = document.getElementById("pWins");
     const cWins = document.getElementById("cWins");
+    const modal = document.getElementById("modal");
+    const modalContent = document.getElementById("modalContent");
+    const modalClose = document.getElementById("modalClose");
 
-    //resetBtn.addEventListener("click", () => resetGame());
-    rockBtn.addEventListener("click", () => playRound(0));
-    paperBtn.addEventListener("click", () => playRound(1));
-    scissorsBtn.addEventListener("click", () => playRound(2));
+    resetBtn.addEventListener("click", () => resetGame());
+    rockBtn.addEventListener("click", () => handleClick(0));
+    paperBtn.addEventListener("click", () => handleClick(1));
+    scissorsBtn.addEventListener("click", () => handleClick(2));
+    modalClose.addEventListener("click", () => closeModal());
 }
   
 
@@ -28,10 +32,7 @@ function getComputerChoice() {
 }
 
 function isGameOver() {
-    if (pScore == 5 || cScore == 5) {
-        return true;
-    } 
-    return false;
+    return (pScore >= WIN_CONDITION || cScore >= WIN_CONDITION);
 }
 
 function resetGame() {
@@ -43,27 +44,40 @@ function resetGame() {
     cIcon.textContent = "?";
     pWins.textContent = pScore;
     cWins.textContent = cScore;
+    closeModal();
 }
 
 function endGame() {
-    let msg;
+    let content;
     if (pScore > cScore) {
-        msg = "You have defeated the aliens!";
+        content = "You won!";
     } else {
-        msg = "Oh no, you lost and humanity is doomed!";
+        content = "You lost!";
     }
-    const div = document.createElement("div");
-    div.id = "endGame";
-    const btn = document.createElement("button");
-    btn.innerHTML = "Play Again?";
-    btn.id = "resetBtn";
-    btn.addEventListener("click", () => resetGame());
+    modalContent.textContent = content;
+    
+    openModal();
+}
+
+function openModal() {
+    modal.classList.remove("inactive");
+}
+
+function closeModal() {
+    modal.classList.add("inactive");
+}
+
+function handleClick(pChoice) {
+    if (isGameOver()) {
+        openModal();
+    }
+    else {
+        playRound(pChoice);
+    }
 }
 
 function playRound(pChoice) {
     let cChoice = getComputerChoice();
-
-    console.log(pChoice, cChoice);    
 
     pIcon.textContent = symbols[pChoice];
     cIcon.textContent = symbols[cChoice];

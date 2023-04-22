@@ -8,10 +8,9 @@
     <script src="main.js"></script>
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
-    <link
-    href="https://fonts.googleapis.com/css2?family=Lacquer&family=Roboto&display=swap"
-    rel="stylesheet"
-  />
+    <link href="https://fonts.googleapis.com/css2?family=Lacquer&family=Roboto&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <div id="header" class="text-center">
@@ -39,10 +38,22 @@
             <p id="cWins" class="inline">0</p>
         </div>
     </div>
-    <div class="flex-container game-results">
-        <p></p>
+    <div id="modal" class="modal inactive">
+        <div class="modal__inner">
+            <div class="modal__top">
+                <div class="modal__title" id="modalTitle">Play New Game?</div>
+                <button id="modalClose" class="modal__close" type="button">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="modal__content">
+                <p id="modalContent"></p>
+            </div>
+            <div class="modal__bottom">
+                <button id="resetBtn" class="modal__button" type="button">Play Again</button>
+            </div>
+        </div>
     </div>
-    <button id="resetBtn">Play new game</button>
 
 </body>
 
