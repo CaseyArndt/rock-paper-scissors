@@ -1,6 +1,6 @@
 const rps = {0: 'Rock', 1: 'Paper', 2: "Scissors"};
 const symbols = {0: '🪨', 1: '📄', 2: '✂️'}
-const WIN_CONDITION = 1;
+const WIN_CONDITION = 5;
 let pScore = 0;
 let cScore = 0;
 
@@ -15,6 +15,7 @@ window.onload=function(){
     const pWins = document.getElementById("pWins");
     const cWins = document.getElementById("cWins");
     const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("modalTitle");
     const modalContent = document.getElementById("modalContent");
     const modalClose = document.getElementById("modalClose");
 
@@ -48,12 +49,17 @@ function resetGame() {
 }
 
 function endGame() {
-    let content;
+    let title, content;
     if (pScore > cScore) {
-        content = "You won!";
+        title = "You won!";
+        content = "Winner, winner, chicken dinner!\n" +
+            "The aliens have been defeated and are scrambling to retreat to their home planet.";
     } else {
-        content = "You lost!";
+        title = "You lost!";
+        content = "Oh no, the Earth and humanity are doomed!" +
+        " Unless you can manage to convince the aliens to play again...";
     }
+    modalTitle.textContent = title;
     modalContent.textContent = content;
     
     openModal();
